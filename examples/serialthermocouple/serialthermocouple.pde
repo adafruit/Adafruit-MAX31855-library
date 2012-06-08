@@ -34,10 +34,16 @@ void loop() {
   // basic readout test, just print the current temp
    Serial.print("Internal Temp = ");
    Serial.println(thermocouple.readInternal());
-   Serial.print("C = "); 
-   Serial.println(thermocouple.readCelsius());
-   Serial.print("F = ");
-   Serial.println(thermocouple.readFarenheit());
+
+   double c = thermocouple.readCelsius();
+   if (isnan(c)) {
+     Serial.println("Something wrong with thermocouple!");
+   } else {
+     Serial.print("C = "); 
+     Serial.println(c);
+   }
+   //Serial.print("F = ");
+   //Serial.println(thermocouple.readFarenheit());
  
    delay(1000);
 }
