@@ -39,11 +39,16 @@ double Adafruit_MAX31855::readInternal(void) {
 
   v = spiread32();
 
-  float internal = (v >> 4) & 0x1FF;
-  internal *= 0.0625;
-  if ((v >> 4) & 0x200) 
+  // ignore bottom 4 bits - they're just thermocouple data
+  v >>= 4;
+
+  // pull the bottom 11 bits off
+  float internal = v & 0x7FF;
+  internal *= 0.0625; // LSB = 0.0625 degrees
+  // check sign bit!
+  if (v & 0x800) 
     internal *= -1;
-  //Serial.print("Internal Temp: "); Serial.println(internal);
+  //Serial.print("\tInternal Temp: "); Serial.println(internal);
   return internal;
 }
 
@@ -55,21 +60,29 @@ double Adafruit_MAX31855::readCelsius(void) {
 
   //Serial.print("0x"); Serial.println(v, HEX);
 
-  float internal = (v >> 4) & 0x1FF;
+  /*
+  float internal = (v >> 4) & 0x7FF;
   internal *= 0.0625;
-  if ((v >> 4) & 0x200) 
+  if ((v >> 4) & 0x800) 
     internal *= -1;
-  //Serial.print("Internal Temp: "); Serial.println(internal);
+  Serial.print("\tInternal Temp: "); Serial.println(internal);
+  */
+
   if (v & 0x7) {
     // uh oh, a serious problem!
     return NAN; 
   }
 
+  // get rid of internal temp data, and any fault bits
   v >>= 18;
   //Serial.println(v, HEX);
 
-  double temp = v & 0x7FF;
-  if (v & 0x800) temp *= -1;
+  // pull the bottom 13 bits off
+  double temp = v & 0x1FFF;
+  // check sign bit
+  if (v & 0x2000) 
+    temp *= -1;
+  // LSB = 0.25 degrees C
   temp *= 0.25;
   return temp;
 }
@@ -79,7 +92,11 @@ uint8_t Adafruit_MAX31855::readError() {
 }
 
 double Adafruit_MAX31855::readFarenheit(void) {
-  return readCelsius() * 9.0/5.0 + 32;
+  float f = readCelsius();
+  f *= 9.0;
+  f /= 5.0;
+  f += 32;
+  return f;
 }
 
 uint32_t Adafruit_MAX31855::spiread32(void) { 
