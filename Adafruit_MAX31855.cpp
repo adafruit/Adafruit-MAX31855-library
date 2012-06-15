@@ -54,7 +54,7 @@ double Adafruit_MAX31855::readInternal(void) {
 
 double Adafruit_MAX31855::readCelsius(void) {
 
-  uint32_t v;
+  int32_t v;
 
   v = spiread32();
 
@@ -78,13 +78,18 @@ double Adafruit_MAX31855::readCelsius(void) {
   //Serial.println(v, HEX);
 
   // pull the bottom 13 bits off
-  double temp = v & 0x1FFF;
+  int16_t temp = v & 0x3FFF;
+
   // check sign bit
   if (v & 0x2000) 
-    temp *= -1;
+    temp |= 0xC000;
+  //Serial.println(temp);
+  
+  double centigrade = v;
+
   // LSB = 0.25 degrees C
-  temp *= 0.25;
-  return temp;
+  centigrade *= 0.25;
+  return centigrade;
 }
 
 uint8_t Adafruit_MAX31855::readError() {
