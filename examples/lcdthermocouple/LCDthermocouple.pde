@@ -17,9 +17,9 @@
 #include "Adafruit_MAX31855.h"
 #include <LiquidCrystal.h>
 
-int thermoCLK = 3;
+int thermoDO = 3;
 int thermoCS = 4;
-int thermoDO = 5;
+int thermoCLK = 5;
 
 // Initialize the Thermocouple
 Adafruit_MAX31855 thermocouple(thermoCLK, thermoCS, thermoDO);
