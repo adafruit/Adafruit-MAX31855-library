@@ -18,12 +18,14 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 #include <stdlib.h>
+#include <SPI.h>
 
 
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t SCLK, int8_t CS, int8_t MISO) {
   sclk = SCLK;
   cs = CS;
   miso = MISO;
+  hSPI = 0;
 
   //define pin modes
   pinMode(cs, OUTPUT);
@@ -33,6 +35,21 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t SCLK, int8_t CS, int8_t MISO) {
   digitalWrite(cs, HIGH);
 }
 
+Adafruit_MAX31855::Adafruit_MAX31855(int8_t CS) {
+  cs = CS;
+  hSPI = 1;
+
+  //define pin modes
+  pinMode(cs, OUTPUT);
+  
+  //start and configure hardware SPI
+  SPI.begin();
+  SPI.setBitOrder(MSBFIRST);
+  SPI.setDataMode(SPI_MODE0);
+  SPI.setClockDivider(SPI_CLOCK_DIV4);
+  
+  digitalWrite(cs, HIGH);
+}
 
 double Adafruit_MAX31855::readInternal(void) {
   uint32_t v;
@@ -108,6 +125,10 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   int i;
   uint32_t d = 0;
 
+  if(hSPI) {
+    return hspiread32();
+  }
+
   digitalWrite(sclk, LOW);
   _delay_ms(1);
   digitalWrite(cs, LOW);
@@ -129,4 +150,25 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   digitalWrite(cs, HIGH);
   //Serial.println(d, HEX);
   return d;
+}
+
+uint32_t Adafruit_MAX31855::hspiread32(void) {
+  int i;
+  // easy conversion of four uint8_ts to uint32_t
+  union bytes_to_uint32 {
+    uint8_t bytes[4];
+    uint32_t integer;
+  } buffer;
+  
+  digitalWrite(cs, LOW);
+  _delay_ms(1);
+  
+  for (i=3;i>=0;i--) {
+    buffer.bytes[i] = SPI.transfer(0x00);
+  }
+  
+  digitalWrite(cs, HIGH);
+  
+  return buffer.integer;
+  
 }
