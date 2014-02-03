@@ -76,14 +76,6 @@ double Adafruit_MAX31855::readCelsius(void) {
   // get rid of internal temp data, and any fault bits
   v >>= 18;
   //Serial.println(v, HEX);
-
-  // pull the bottom 13 bits off
-  int16_t temp = v & 0x3FFF;
-
-  // check sign bit
-  if (v & 0x2000) 
-    temp |= 0xC000;
-  //Serial.println(temp);
   
   double centigrade = v;
 
