@@ -13,7 +13,7 @@
   Written by Limor Fried/Ladyada for Adafruit Industries.  
   BSD license, all text above must be included in any redistribution
  ****************************************************/
-
+#include <SPI.h>
 #include "Adafruit_MAX31855.h"
 #include <LiquidCrystal.h>
 
