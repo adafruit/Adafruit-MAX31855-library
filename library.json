@@ -1,10 +1,12 @@
 {
-  "name": "Adafruit-Arduino-MAX31885",
+  "name": "Adafruit-MAX31885",
   "keywords": "sensor, thermocouple, temperature",
   "description": "Library for the Adafruit Thermocouple breakout with MAX31855K",
   "repository":
   {
     "type": "git",
     "url": "https://github.com/adafruit/Adafruit-MAX31855-library.git"
-  }
+  },
+  "frameworks": "arduino",
+  "platforms": "atmelavr"
 }
