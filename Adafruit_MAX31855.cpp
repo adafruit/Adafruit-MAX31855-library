@@ -15,7 +15,12 @@
  ****************************************************/
 
 #include "Adafruit_MAX31855.h"
-#include <avr/pgmspace.h>
+#ifdef __AVR
+  #include <avr/pgmspace.h>
+#elif defined(ESP8266)
+  #include <pgmspace.h>
+#endif
+
 #include <util/delay.h>
 #include <stdlib.h>
 #include <SPI.h>
