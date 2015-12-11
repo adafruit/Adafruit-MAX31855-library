@@ -22,17 +22,28 @@
 
 // Example creating a thermocouple instance with software SPI on any three
 // digital IO pins.
-#define DO   3
-#define CS   4
-#define CLK  5
-Adafruit_MAX31855 thermocouple(CLK, CS, DO);
+#define MAXDO   3
+#define MAXCS   4
+#define MAXCLK  5
+
+// initialize the Thermocouple
+Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
 
 // Example creating a thermocouple instance with hardware SPI (Uno/Mega only)
 // on a given CS pin.
-//#define CS   10
-//Adafruit_MAX31855 thermocouple(CS);
+//#define MAXCS   10
+//Adafruit_MAX31855 thermocouple(MAXCS);
+
+#if defined(ARDUINO_ARCH_SAMD)
+// for Zero, output on USB Serial console, remove line below if using programming port to program the Zero!
+   #define Serial SerialUSB
+#endif
 
 void setup() {
+  #ifndef ESP8266
+    while (!Serial);     // will pause Zero, Leonardo, etc until serial console opens
+  #endif
+  
   Serial.begin(9600);
   
   Serial.println("MAX31855 test");
