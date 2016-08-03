@@ -170,7 +170,6 @@ uint32_t Adafruit_MAX31855::hspiread32(void) {
   } buffer;
   
   digitalWrite(cs, LOW);
-  delay(1);
   
   for (i=3;i>=0;i--) {
     buffer.bytes[i] = SPI.transfer(0x00);
