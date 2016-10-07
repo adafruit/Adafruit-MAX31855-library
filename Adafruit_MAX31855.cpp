@@ -92,7 +92,6 @@ double Adafruit_MAX31855::readCelsius(void) {
     internal *= -1;
   Serial.print("\tInternal Temp: "); Serial.println(internal);
   */
-
   if (v & 0x7) {
     // uh oh, a serious problem!
     return NAN; 
