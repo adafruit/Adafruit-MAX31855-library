@@ -23,6 +23,11 @@
  #include "WProgram.h"
 #endif
 
+typedef struct max31855readings {
+  double internal;
+  double celsius;
+};
+
 class Adafruit_MAX31855 {
  public:
   Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso);
@@ -32,6 +37,7 @@ class Adafruit_MAX31855 {
   double readInternal(void);
   double readCelsius(void);
   double readFarenheit(void);
+  max31855readings readTemperatures(void);
   uint8_t readError();
 
  private:
@@ -39,6 +45,10 @@ class Adafruit_MAX31855 {
 
   int8_t sclk, miso, cs;
   uint32_t spiread32(void);
+
+  double processInternal(uint32_t);
+  double processCelsius(int32_t);
+
 };
 
 #endif
