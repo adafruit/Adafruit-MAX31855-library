@@ -58,9 +58,11 @@ void Adafruit_MAX31855::begin(void) {
 
 double Adafruit_MAX31855::readInternal(void) {
   uint32_t v;
-
   v = spiread32();
+  return processInternal(v);
+}
 
+double Adafruit_MAX31855::processInternal(uint32_t v) {
   // ignore bottom 4 bits - they're just thermocouple data
   v >>= 4;
 
@@ -78,13 +80,13 @@ double Adafruit_MAX31855::readInternal(void) {
 }
 
 double Adafruit_MAX31855::readCelsius(void) {
-
   int32_t v;
-
   v = spiread32();
+//  Serial.print("0x"); Serial.println(v, HEX);
+  return processCelsius(v);
+}
 
-  //Serial.print("0x"); Serial.println(v, HEX);
-
+double Adafruit_MAX31855::processCelsius(int32_t v) {
   /*
   float internal = (v >> 4) & 0x7FF;
   internal *= 0.0625;
@@ -114,6 +116,16 @@ double Adafruit_MAX31855::readCelsius(void) {
   return centigrade;
 }
 
+// Combined function to perform a single spiread32() which can be very slow
+max31855readings Adafruit_MAX31855::readTemperatures(void) {
+	uint32_t v;
+	v = spiread32();
+	max31855readings readings;
+	readings.internal = processInternal(v);
+	readings.celsius = processCelsius((int32_t)v);
+	return readings;
+}
+
 uint8_t Adafruit_MAX31855::readError() {
   return spiread32() & 0x7;
 }
@@ -136,7 +148,7 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   }
 
   digitalWrite(cs, LOW);
-  delay(1);
+//  delay(1); // all delays removed completely as per observation from Matthijs Kooijman that the MAX31855 datasheet requires 100ns (that being 0.1 microsecond!)
 
   if(sclk == -1) {
     // hardware SPI
@@ -156,18 +168,18 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
     // software SPI
 
     digitalWrite(sclk, LOW);
-    delay(1);
+//    delay(1);
 
     for (i=31; i>=0; i--) {
       digitalWrite(sclk, LOW);
-      delay(1);
+//      delay(1);
       d <<= 1;
       if (digitalRead(miso)) {
-	d |= 1;
+        d |= 1;
       }
-      
+
       digitalWrite(sclk, HIGH);
-      delay(1);
+//      delay(1);
     }
   }
 
