@@ -11,7 +11,7 @@ These modules use SPI to communicate, 3 pins are required to interface.
 
 ## Usage
 
-To download. click the DOWNLOADS button in the top right corner, rename the uncompressed folder Adafruit_MAX31885. Check that the Adafruit_MAX31885 folder contains Adafruit_MAX31885.cpp and Adafruit_MAX31885.h
+[Download the .zip here](https://github.com/adafruit/Adafruit-MAX31855-library/archive/master.zip), rename the uncompressed folder `Adafruit_MAX31885`. Check that the `Adafruit_MAX31885` folder contains `Adafruit_MAX31885.cpp` and `Adafruit_MAX31885.h`.
 
 Place the Adafruit_MAX31885 library folder your <arduinosketchfolder>/libraries/ folder. You may need to create the libraries subfolder if its your first library. Restart the IDE.
 
