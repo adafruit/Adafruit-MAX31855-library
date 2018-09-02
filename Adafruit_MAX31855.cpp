@@ -130,7 +130,7 @@ double Adafruit_MAX31855::readFarenheit(void) {
 uint32_t Adafruit_MAX31855::readRaw(void) {
   // spiread32() made Public
   // returns the unprocessed 32 bits of the MAX31855's internal memory
-  return inline spiread32();
+  return spiread32();
 }
 
 double   Adafruit_MAX31855::decodeCelsius(uint32_t rawData){
