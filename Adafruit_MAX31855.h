@@ -33,6 +33,13 @@ class Adafruit_MAX31855 {
   double readCelsius(void);
   double readFarenheit(void);
   uint8_t readError();
+  
+  // advanced functions
+  uint32_t readRaw(void);
+  double   decodeCelsius(uint32_t rawData);
+  double   decodeInternal(uint32_t rawData);
+  double   linearizeCelcius(double internalTemp, double rawTemp);
+  
 
  private:
   boolean initialized;
