@@ -157,7 +157,7 @@ double   Adafruit_MAX31855::decodeCelsius(uint32_t rawData){
 
   if (v & 0x80000000) {
     // Negative value, drop the lower 18 bits and explicitly extend sign bits.
-    v = 0xFFFFC000 | ((v >> 18) & 0x00003FFFF);
+    v = 0xFFFFC000 | ((v >> 18) & 0x00003FFF);
   }
   else {
     // Positive value, just drop the lower 18 bits.
