@@ -230,7 +230,12 @@ double Adafruit_MAX31855::linearizeCelcius(double internalTemp, double rawTemp) 
 
     // Step 3. Calculate the cold junction equivalent thermocouple voltage.
 
-    if (internalTemp >= 0) { // For positive temperatures use appropriate NIST coefficients
+	// Lightened in relation to this post:
+	// https://forums.adafruit.com/viewtopic.php?f=19&t=32086&start=75#p579783
+
+	internalVoltage = internalTemp * 0.04073 ; // (mV) MAX38155 comp scale is 40.73 uV/C
+	
+/*     if (internalTemp >= 0) { // For positive temperatures use appropriate NIST coefficients
       // Coefficients and equations available from http://srdata.nist.gov/its90/download/type_k.tab
 
       double c[] = { -0.176004136860E-01,  0.389212049750E-01,  0.185587700320E-04, -0.994575928740E-07,  0.318409457190E-09, -0.560728448890E-12,  0.560750590590E-15, -0.320207200030E-18,  0.971511471520E-22, -0.121047212750E-25};
@@ -265,7 +270,8 @@ double Adafruit_MAX31855::linearizeCelcius(double internalTemp, double rawTemp) 
         internalVoltage += c[i] * pow(internalTemp, i) ;
       }
     }
-
+ */
+ 
     // Step 4. Add the cold junction equivalent thermocouple voltage calculated in step 3 to the thermocouple voltage calculated in step 2.
     totalVoltage = thermocoupleVoltage + internalVoltage;
 
