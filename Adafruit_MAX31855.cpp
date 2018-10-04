@@ -222,6 +222,7 @@ double Adafruit_MAX31855::linearizeCelcius(double internalTemp, double rawTemp) 
   // Check to make sure thermocouple is working correctly.
   if (isnan(rawTemp)) {
     Serial.println(F("Something wrong with thermocouple!"));
+	return NAN;
   }
   else {
     // Steps 1 & 2. Subtract cold junction temperature from the raw thermocouple temperature.
