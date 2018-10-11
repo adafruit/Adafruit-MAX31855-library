@@ -328,7 +328,7 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   if(sclk == -1) {
     // hardware SPI
 
-    SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+    SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE1));
 
     d = SPI.transfer(0);
     d <<= 8;
