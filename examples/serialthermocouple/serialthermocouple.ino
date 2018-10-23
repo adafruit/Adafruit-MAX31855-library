@@ -57,7 +57,7 @@ void loop() {
      Serial.println(c);
    }
    //Serial.print("F = ");
-   //Serial.println(thermocouple.readFarenheit());
+   //Serial.println(thermocouple.readFahrenheit());
  
    delay(1000);
 }
