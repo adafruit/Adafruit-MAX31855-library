@@ -65,13 +65,10 @@ double Adafruit_MAX31855::readInternal(void) {
   v >>= 4;
 
   // pull the bottom 11 bits off
-  float internal = v & 0x7FF;
-  // check sign bit!
-  if (v & 0x800) {
-    // Convert to negative value by extending sign and casting to signed type.
-    int16_t tmp = 0xF800 | (v & 0x7FF);
-    internal = tmp;
-  }
+  v = ( v << 16) >> 20;
+
+  float internal = v ;
+
   internal *= 0.0625; // LSB = 0.0625 degrees
   //Serial.print("\tInternal Temp: "); Serial.println(internal);
   return internal;
@@ -98,14 +95,8 @@ double Adafruit_MAX31855::readCelsius(void) {
     return NAN; 
   }
 
-  if (v & 0x80000000) {
-    // Negative value, drop the lower 18 bits and explicitly extend sign bits.
-    v = 0xFFFFC000 | ((v >> 18) & 0x00003FFFF);
-  }
-  else {
-    // Positive value, just drop the lower 18 bits.
-    v >>= 18;
-  }
+  v >>= 18;
+	
   //Serial.println(v, HEX);
   
   double centigrade = v;
