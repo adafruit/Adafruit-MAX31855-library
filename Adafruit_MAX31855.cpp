@@ -93,6 +93,10 @@ double Adafruit_MAX31855::readCelsius(void) {
   Serial.print("\tInternal Temp: "); Serial.println(internal);
   */
 
+  if (mask) {
+    v &= mask;
+  }
+
   if (v & 0x7) {
     // uh oh, a serious problem!
     return NAN; 
@@ -175,4 +179,9 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   digitalWrite(cs, HIGH);
   //Serial.println(d, HEX);
   return d;
+}
+
+
+void Adafruit_MAX31855::setErrorMask(uint32_t _mask) {
+  mask = ~(_mask & 0x7);
 }

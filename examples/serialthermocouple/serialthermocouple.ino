@@ -51,7 +51,20 @@ void loop() {
 
    double c = thermocouple.readCelsius();
    if (isnan(c)) {
-     Serial.println("Something wrong with thermocouple!");
+     uint8_t e = thermocouple.readError();
+     if (e) {
+       Serial.print(F("Thermocouple error(s): "));
+       if (e & MAX31855_ERR_OC) {
+         Serial.print(F("[open circuit] "));
+       }
+       if (e & MAX31855_ERR_GND) {
+         Serial.print(F("[short to GND] "));
+       }
+       if (e & MAX31855_ERR_VCC) {
+         Serial.print(F("[short to VCC] "));
+       }
+       Serial.println();
+     }
    } else {
      Serial.print("C = "); 
      Serial.println(c);

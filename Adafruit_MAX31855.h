@@ -23,6 +23,10 @@
  #include "WProgram.h"
 #endif
 
+#define MAX31855_ERR_OC  0x1
+#define MAX31855_ERR_GND 0x2
+#define MAX31855_ERR_VCC 0x4
+
 class Adafruit_MAX31855 {
  public:
   Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso);
@@ -33,12 +37,13 @@ class Adafruit_MAX31855 {
   double readCelsius(void);
   double readFarenheit(void);
   uint8_t readError();
+  void setErrorMask(uint32_t);
 
  private:
   boolean initialized;
-
   int8_t sclk, miso, cs;
   uint32_t spiread32(void);
+  uint32_t mask;
 };
 
 #endif
