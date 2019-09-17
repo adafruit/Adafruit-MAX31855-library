@@ -53,9 +53,9 @@ void Adafruit_MAX31855::begin(void) {
 #ifdef ESP32	// if we have ESP32 - where we have 2 HW SPIs
     if(cs==5) MAXSPI->begin(18, 19, 23, 5);	// VSPI - pins SCLK = 18, MISO = 19, MOSI = 23, SS = 5
     else MAXSPI->begin(14, 12, 13, 15);		// HSPI - pins SCLK = 14, MISO = 12, MOSI = 13, SS = 15 - HSPI is default SPI on ESP32
+    pinMode(cs, OUTPUT);
 #elif		// everything else
     MAXSPI->begin();
-    pinMode(cs, OUTPUT);
 #endif
   } else {
     pinMode(sclk, OUTPUT);
