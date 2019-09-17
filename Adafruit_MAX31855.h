@@ -17,6 +17,8 @@
 #ifndef ADAFRUIT_MAX31855_H
 #define ADAFRUIT_MAX31855_H
 
+#include <SPI.h>
+
 #if (ARDUINO >= 100)
  #include "Arduino.h"
 #else
@@ -34,10 +36,17 @@ class Adafruit_MAX31855 {
   double readFarenheit(void);
   uint8_t readError();
 
+  // advanced functions
+/*  uint32_t readRaw(void);
+  double   decodeCelsius(uint32_t rawData);
+  double   decodeInternal(uint32_t rawData);
+  double   linearizeCelcius(double internalTemp, double rawTemp);
+*/
  private:
   boolean initialized;
 
   int8_t sclk, miso, cs;
+  SPIClass * MAXSPI = NULL;
   uint32_t spiread32(void);
 };
 

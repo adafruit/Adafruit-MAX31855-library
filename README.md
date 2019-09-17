@@ -10,6 +10,7 @@ Atmega328 @ 12MHz  |      X       |             |            | For LCD example h
 Atmega32u4 @ 16MHz |      X       |             |            | 
 Atmega32u4 @ 8MHz  |      X       |             |            | 
 ESP8266            |      X       |             |            | 
+ESP32              |      X       |             |            | Can use both SPI HSPI/VSPI
 Atmega2560 @ 16MHz |      X       |             |            | 
 ATSAM3X8E          |      X       |             |            | 
 ATSAM21D           |      X       |             |            | 
@@ -23,6 +24,7 @@ STM32F2            |             |             |     X       |
   * ATmega32u4 @ 16MHz : Arduino Leonardo, Arduino Micro, Arduino Yun, Teensy 2.0
   * ATmega32u4 @ 8MHz : Adafruit Flora, Bluefruit Micro
   * ESP8266 : Adafruit Huzzah
+  * ESP32 : ESP32-Wrover-B Espressif
   * ATmega2560 @ 16MHz : Arduino Mega
   * ATSAM3X8E : Arduino Due
   * ATSAM21D : Arduino Zero, M0 Pro
