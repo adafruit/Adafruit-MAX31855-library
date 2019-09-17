@@ -34,10 +34,18 @@ Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
 //#define MAXCS   10
 //Adafruit_MAX31855 thermocouple(MAXCS);
 
+// If you want to use other HW SPI then default, you can pass pointer to begin() function. On ESP32 it could look like this
+//#define MAXCS	15				// this is CS for HSPI, for VSPI its 5
+//Adafruit_MAX31855 thermocouple(MAXCS);
+//SPIClass *ESP32_HSPI = new SPIClass(HSPI);	// create new SPI object
+// Then you need to pass pointer to this object with begin() in setup below
+
 void setup() {
   Serial.begin(9600);
  
   while (!Serial) delay(1); // wait for Serial on Leonardo/Zero, etc
+
+//thermocouple.begin(ESP32_HSPI);		// pass pointer to HSPI on ESP32
 
   Serial.println("MAX31855 test");
   // wait for MAX chip to stabilize
@@ -45,7 +53,7 @@ void setup() {
 }
 
 void loop() {
-  // basic readout test, just print the current temp
+   // basic readout test, just print the current temp
    Serial.print("Internal Temp = ");
    Serial.println(thermocouple.readInternal());
 

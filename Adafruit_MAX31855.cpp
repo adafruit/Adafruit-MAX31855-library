@@ -40,23 +40,17 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
   initialized = false;
 }
 
-void Adafruit_MAX31855::begin(void) {
+void Adafruit_MAX31855::begin(SPIClass *SPI_Pointer) {
   //define pin modes
   pinMode(cs, OUTPUT);
   digitalWrite(cs, HIGH);
 
-  MAXSPI = new SPIClass();
+  MAXSPI = SPI_Pointer;
 
   if (sclk == -1) {
     // hardware SPI
     //start and configure hardware SPI
-#ifdef ESP32	// if we have ESP32 - where we have 2 HW SPIs
-    if(cs==5) MAXSPI->begin(18, 19, 23, 5);	// VSPI - pins SCLK = 18, MISO = 19, MOSI = 23, SS = 5
-    else MAXSPI->begin(14, 12, 13, 15);		// HSPI - pins SCLK = 14, MISO = 12, MOSI = 13, SS = 15 - HSPI is default SPI on ESP32
-    pinMode(cs, OUTPUT);
-#elif		// everything else
     MAXSPI->begin();
-#endif
   } else {
     pinMode(sclk, OUTPUT);
     pinMode(miso, INPUT);
