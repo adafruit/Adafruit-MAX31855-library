@@ -1,16 +1,16 @@
-/*************************************************** 
+/***************************************************
   This is a library for the Adafruit Thermocouple Sensor w/MAX31855K
 
   Designed specifically to work with the Adafruit Thermocouple Sensor
   ----> https://www.adafruit.com/products/269
 
-  These displays use SPI to communicate, 3 pins are required to  
+  These displays use SPI to communicate, 3 pins are required to
   interface
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
 
-  Written by Limor Fried/Ladyada for Adafruit Industries.  
+  Written by Limor Fried/Ladyada for Adafruit Industries.
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
@@ -22,38 +22,22 @@
 #endif
 
 #include <stdlib.h>
-#include <SPI.h>
 
 
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
-  sclk = _sclk;
-  cs = _cs;
-  miso = _miso;
+  spi_dev = Adafruit_SPIDevice(_cs, _sclk, _miso, -1, 4000000);
 
   initialized = false;
 }
 
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
-  cs = _cs;
-  sclk = miso = -1;
+  spi_dev = Adafruit_SPIDevice(_cs, 4000000);
 
   initialized = false;
 }
 
 void Adafruit_MAX31855::begin(void) {
-  //define pin modes
-  pinMode(cs, OUTPUT);
-  digitalWrite(cs, HIGH);
-
-  if (sclk == -1) {
-    // hardware SPI
-    //start and configure hardware SPI
-    SPI.begin();
-  } else {
-    pinMode(sclk, OUTPUT); 
-    pinMode(miso, INPUT);
-  }
-  initialized = true;
+  initialized = spi_dev.begin();
 }
 
 double Adafruit_MAX31855::readInternal(void) {
@@ -88,14 +72,14 @@ double Adafruit_MAX31855::readCelsius(void) {
   /*
   float internal = (v >> 4) & 0x7FF;
   internal *= 0.0625;
-  if ((v >> 4) & 0x800) 
+  if ((v >> 4) & 0x800)
     internal *= -1;
   Serial.print("\tInternal Temp: "); Serial.println(internal);
   */
 
   if (v & 0x7) {
     // uh oh, a serious problem!
-    return NAN; 
+    return NAN;
   }
 
   if (v & 0x80000000) {
@@ -107,7 +91,7 @@ double Adafruit_MAX31855::readCelsius(void) {
     v >>= 18;
   }
   //Serial.println(v, HEX);
-  
+
   double centigrade = v;
 
   // LSB = 0.25 degrees C
@@ -127,52 +111,27 @@ double Adafruit_MAX31855::readFarenheit(void) {
   return f;
 }
 
-uint32_t Adafruit_MAX31855::spiread32(void) { 
+uint32_t Adafruit_MAX31855::spiread32(void) {
   int i;
   uint32_t d = 0;
+  uint8_t buf[4];
 
   // backcompatibility!
   if (! initialized) {
     begin();
   }
 
-  digitalWrite(cs, LOW);
-  delay(1);
+  spi_dev.read(buf, 4);
 
-  if(sclk == -1) {
-    // hardware SPI
+  d = buf[0];
+  d <<= 8;
+  d |= buf[1];
+  d <<= 8;
+  d |= buf[2];
+  d <<=8;
+  d |= buf[3];
 
-    SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
-
-    d = SPI.transfer(0);
-    d <<= 8;
-    d |= SPI.transfer(0);
-    d <<= 8;
-    d |= SPI.transfer(0);
-    d <<= 8;
-    d |= SPI.transfer(0);
-
-    SPI.endTransaction();
-  } else {
-    // software SPI
-
-    digitalWrite(sclk, LOW);
-    delay(1);
-
-    for (i=31; i>=0; i--) {
-      digitalWrite(sclk, LOW);
-      delay(1);
-      d <<= 1;
-      if (digitalRead(miso)) {
-	d |= 1;
-      }
-      
-      digitalWrite(sclk, HIGH);
-      delay(1);
-    }
-  }
-
-  digitalWrite(cs, HIGH);
   //Serial.println(d, HEX);
+
   return d;
 }
