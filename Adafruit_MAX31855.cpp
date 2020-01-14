@@ -16,13 +16,12 @@
 
 #include "Adafruit_MAX31855.h"
 #ifdef __AVR
-  #include <avr/pgmspace.h>
+#include <avr/pgmspace.h>
 #elif defined(ESP8266)
-  #include <pgmspace.h>
+#include <pgmspace.h>
 #endif
 
 #include <stdlib.h>
-
 
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
   spi_dev = Adafruit_SPIDevice(_cs, _sclk, _miso, -1, 4000000);
@@ -36,9 +35,7 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
   initialized = false;
 }
 
-void Adafruit_MAX31855::begin(void) {
-  initialized = spi_dev.begin();
-}
+void Adafruit_MAX31855::begin(void) { initialized = spi_dev.begin(); }
 
 double Adafruit_MAX31855::readInternal(void) {
   uint32_t v;
@@ -57,7 +54,7 @@ double Adafruit_MAX31855::readInternal(void) {
     internal = tmp;
   }
   internal *= 0.0625; // LSB = 0.0625 degrees
-  //Serial.print("\tInternal Temp: "); Serial.println(internal);
+  // Serial.print("\tInternal Temp: "); Serial.println(internal);
   return internal;
 }
 
@@ -67,7 +64,7 @@ double Adafruit_MAX31855::readCelsius(void) {
 
   v = spiread32();
 
-  //Serial.print("0x"); Serial.println(v, HEX);
+  // Serial.print("0x"); Serial.println(v, HEX);
 
   /*
   float internal = (v >> 4) & 0x7FF;
@@ -85,12 +82,11 @@ double Adafruit_MAX31855::readCelsius(void) {
   if (v & 0x80000000) {
     // Negative value, drop the lower 18 bits and explicitly extend sign bits.
     v = 0xFFFFC000 | ((v >> 18) & 0x00003FFFF);
-  }
-  else {
+  } else {
     // Positive value, just drop the lower 18 bits.
     v >>= 18;
   }
-  //Serial.println(v, HEX);
+  // Serial.println(v, HEX);
 
   double centigrade = v;
 
@@ -99,9 +95,7 @@ double Adafruit_MAX31855::readCelsius(void) {
   return centigrade;
 }
 
-uint8_t Adafruit_MAX31855::readError() {
-  return spiread32() & 0x7;
-}
+uint8_t Adafruit_MAX31855::readError() { return spiread32() & 0x7; }
 
 double Adafruit_MAX31855::readFarenheit(void) {
   float f = readCelsius();
@@ -117,7 +111,7 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   uint8_t buf[4];
 
   // backcompatibility!
-  if (! initialized) {
+  if (!initialized) {
     begin();
   }
 
@@ -128,10 +122,10 @@ uint32_t Adafruit_MAX31855::spiread32(void) {
   d |= buf[1];
   d <<= 8;
   d |= buf[2];
-  d <<=8;
+  d <<= 8;
   d |= buf[3];
 
-  //Serial.println(d, HEX);
+  // Serial.println(d, HEX);
 
   return d;
 }
