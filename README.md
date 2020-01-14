@@ -1,32 +1,16 @@
-# Adafruit-MAX31855-library
-<!-- START COMPATIBILITY TABLE -->
+# Adafruit-MAX31855-library ![Build Status](https://github.com/adafruit/Adafruit-MAX31855-library/workflows/Arduino%20Library%20CI/badge.svg)
 
-## Compatibility
+Driver for the [Adafruit MAX31855 Thermocouple Amplifier](https://www.adafruit.com/product/269)
 
-MCU                | Tested Works | Doesn't Work | Not Tested  | Notes
------------------- | :----------: | :----------: | :---------: | -----
-Atmega328 @ 16MHz  |      X       |             |            | 
-Atmega328 @ 12MHz  |      X       |             |            | For LCD example had to move pin 7.
-Atmega32u4 @ 16MHz |      X       |             |            | 
-Atmega32u4 @ 8MHz  |      X       |             |            | 
-ESP8266            |      X       |             |            | 
-Atmega2560 @ 16MHz |      X       |             |            | 
-ATSAM3X8E          |      X       |             |            | 
-ATSAM21D           |      X       |             |            | 
-ATtiny85 @ 16MHz   |             |      X       |            | 
-ATtiny85 @ 8MHz    |             |      X       |            | 
-Intel Curie @ 32MHz |             |             |     X       | 
-STM32F2            |             |             |     X       | 
+## Info
 
-  * ATmega328 @ 16MHz : Arduino UNO, Adafruit Pro Trinket 5V, Adafruit Metro 328, Adafruit Metro Mini
-  * ATmega328 @ 12MHz : Adafruit Pro Trinket 3V
-  * ATmega32u4 @ 16MHz : Arduino Leonardo, Arduino Micro, Arduino Yun, Teensy 2.0
-  * ATmega32u4 @ 8MHz : Adafruit Flora, Bluefruit Micro
-  * ESP8266 : Adafruit Huzzah
-  * ATmega2560 @ 16MHz : Arduino Mega
-  * ATSAM3X8E : Arduino Due
-  * ATSAM21D : Arduino Zero, M0 Pro
-  * ATtiny85 @ 16MHz : Adafruit Trinket 5V
-  * ATtiny85 @ 8MHz : Adafruit Gemma, Arduino Gemma, Adafruit Trinket 3V
+The MAX31855K does everything for you, and can be easily interfaced with any microcontroller, even one without an analog input. This breakout board has the chip itself, a 3.3V regulator with 10uF bypass capacitors and level shifting circuitry, all assembled and tested. For use with
+[type K thermocouples](http://www.adafruit.com/products/270)
 
-<!-- END COMPATIBILITY TABLE -->
+Adafruit invests time and resources providing this open source code, please
+support Adafruit and open-source hardware by purchasing products from
+[Adafruit](https://www.adafruit.com)!
+
+## License
+
+ BSD license, all text above must be included in any redistribution.
