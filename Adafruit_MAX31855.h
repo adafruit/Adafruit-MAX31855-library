@@ -29,6 +29,11 @@
 
 #include <Adafruit_SPIDevice.h>
 
+/**************************************************************************/
+/*!
+    @brief  Sensor driver for the Adafruit MAX31855 thermocouple breakout.
+*/
+/**************************************************************************/
 class Adafruit_MAX31855 {
 public:
   Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso);
