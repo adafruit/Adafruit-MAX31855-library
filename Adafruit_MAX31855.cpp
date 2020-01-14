@@ -1,18 +1,37 @@
-/***************************************************
-  This is a library for the Adafruit Thermocouple Sensor w/MAX31855K
-
-  Designed specifically to work with the Adafruit Thermocouple Sensor
-  ----> https://www.adafruit.com/products/269
-
-  These displays use SPI to communicate, 3 pins are required to
-  interface
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
- ****************************************************/
+/*!
+ * @file Adafruit_MAX31855.cpp
+ *
+ * @mainpage Adafruit MAX31855 Thermocouple Breakout Driver
+ *
+ * @section intro_sec Introduction
+ *
+ * This is the documentation for Adafruit's MAX31855 thermocouple breakout driver for the
+ * Arduino platform.  It is designed specifically to work with the
+ * Adafruit MAX31855 breakout: https://www.adafruit.com/products/269
+ *
+ * This breakout uses SPI to communicate, 3 pins are required
+ * to interface with the breakout.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * @section dependencies Dependencies
+ *
+ * This library depends on <a
+ * href="https://github.com/adafruit/Adafruit_BusIO"> Adafruit_BusIO</a> being
+ * present on your system. Please make sure you have installed the latest
+ * version before using this library.
+ *
+ * @section author Author
+ *
+ * Written by Limor Fried/Ladyada for Adafruit Industries.
+ *
+ * @section license License
+ *
+ * BSD license, all text above must be included in any redistribution.
+ *
+ */
 
 #include "Adafruit_MAX31855.h"
 #ifdef __AVR
@@ -23,20 +42,51 @@
 
 #include <stdlib.h>
 
+
+/**************************************************************************/
+/*!
+    @brief  Instantiates a new Adafruit_MAX31855 class using software SPI.
+
+    @param _sclk The pin to use for SPI Serial Clock.
+    @param _cs The pin to use for SPI Chip Select.
+    @param _miso The pin to use for SPI Master In Slave Out.
+*/
+/**************************************************************************/
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
   spi_dev = Adafruit_SPIDevice(_cs, _sclk, _miso, -1, 4000000);
 
   initialized = false;
 }
 
+/**************************************************************************/
+/*!
+    @brief  Instantiates a new Adafruit_MAX31855 class using hardware SPI.
+
+    @param _cs The pin to use for SPI Chip Select.
+*/
+/**************************************************************************/
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
   spi_dev = Adafruit_SPIDevice(_cs, 4000000);
 
   initialized = false;
 }
 
+/**************************************************************************/
+/*!
+    @brief  Setup the HW
+
+    @return True if the device was successfully initialized, otherwise false.
+*/
+/**************************************************************************/
 void Adafruit_MAX31855::begin(void) { initialized = spi_dev.begin(); }
 
+/**************************************************************************/
+/*!
+    @brief  Read the internal temperature.
+
+    @return The internal temperature in degrees Celsius.
+*/
+/**************************************************************************/
 double Adafruit_MAX31855::readInternal(void) {
   uint32_t v;
 
@@ -58,6 +108,13 @@ double Adafruit_MAX31855::readInternal(void) {
   return internal;
 }
 
+/**************************************************************************/
+/*!
+    @brief  Read the thermocouple temperature.
+
+    @return The thermocouple temperature in degrees Celsius.
+*/
+/**************************************************************************/
 double Adafruit_MAX31855::readCelsius(void) {
 
   int32_t v;
@@ -95,9 +152,23 @@ double Adafruit_MAX31855::readCelsius(void) {
   return centigrade;
 }
 
+/**************************************************************************/
+/*!
+    @brief  Read the error state.
+
+    @return The error state.
+*/
+/**************************************************************************/
 uint8_t Adafruit_MAX31855::readError() { return spiread32() & 0x7; }
 
-double Adafruit_MAX31855::readFarenheit(void) {
+/**************************************************************************/
+/*!
+    @brief  Read the thermocouple temperature.
+
+    @return The thermocouple temperature in degrees Fahrenheit.
+*/
+/**************************************************************************/
+double Adafruit_MAX31855::readFahrenheit(void) {
   float f = readCelsius();
   f *= 9.0;
   f /= 5.0;
@@ -105,6 +176,13 @@ double Adafruit_MAX31855::readFarenheit(void) {
   return f;
 }
 
+/**************************************************************************/
+/*!
+    @brief  Read 4 bytes (32 bits) from breakout over SPI.
+
+    @return The raw 32 bit value read.
+*/
+/**************************************************************************/
 uint32_t Adafruit_MAX31855::spiread32(void) {
   int i;
   uint32_t d = 0;
