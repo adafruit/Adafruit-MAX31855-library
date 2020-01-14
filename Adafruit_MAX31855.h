@@ -37,7 +37,7 @@ public:
   void begin(void);
   double readInternal(void);
   double readCelsius(void);
-  double readFarenheit(void);
+  double readFahrenheit(void);
   uint8_t readError();
 
 private:
