@@ -5,9 +5,9 @@
  *
  * @section intro_sec Introduction
  *
- * This is the documentation for Adafruit's MAX31855 thermocouple breakout driver for the
- * Arduino platform.  It is designed specifically to work with the
- * Adafruit MAX31855 breakout: https://www.adafruit.com/products/269
+ * This is the documentation for Adafruit's MAX31855 thermocouple breakout
+ * driver for the Arduino platform.  It is designed specifically to work with
+ * the Adafruit MAX31855 breakout: https://www.adafruit.com/products/269
  *
  * This breakout uses SPI to communicate, 3 pins are required
  * to interface with the breakout.
@@ -41,7 +41,6 @@
 #endif
 
 #include <stdlib.h>
-
 
 /**************************************************************************/
 /*!
