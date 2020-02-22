@@ -52,7 +52,7 @@
 */
 /**************************************************************************/
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
-  spi_dev = Adafruit_SPIDevice(_cs, _sclk, _miso, -1, 4000000);
+  spi_dev = Adafruit_SPIDevice(_cs, _sclk, _miso, -1, 1000000);
 
   initialized = false;
 }
@@ -65,7 +65,7 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
 */
 /**************************************************************************/
 Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
-  spi_dev = Adafruit_SPIDevice(_cs, 4000000);
+  spi_dev = Adafruit_SPIDevice(_cs, 1000000);
 
   initialized = false;
 }
