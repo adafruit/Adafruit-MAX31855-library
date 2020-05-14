@@ -39,7 +39,7 @@ public:
   Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso);
   Adafruit_MAX31855(int8_t _cs);
 
-  void begin(void);
+  bool begin(void);
   double readInternal(void);
   double readCelsius(void);
   double readFahrenheit(void);

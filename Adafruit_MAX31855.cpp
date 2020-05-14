@@ -77,7 +77,11 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
     @return True if the device was successfully initialized, otherwise false.
 */
 /**************************************************************************/
-void Adafruit_MAX31855::begin(void) { initialized = spi_dev.begin(); }
+bool Adafruit_MAX31855::begin(void) {
+  initialized = spi_dev.begin();
+
+  return initialized;
+}
 
 /**************************************************************************/
 /*!
