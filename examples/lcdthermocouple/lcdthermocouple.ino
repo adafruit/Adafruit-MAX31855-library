@@ -42,6 +42,11 @@ void setup() {
   lcd.print("MAX31855 test");
   // wait for MAX chip to stabilize
   delay(500);
+  if (!thermocouple.begin()) {
+    lcd.print("ERROR.");
+    while (1) delay(10);
+  }
+  lcd.print("DONE.");
 }
 
 void loop() {

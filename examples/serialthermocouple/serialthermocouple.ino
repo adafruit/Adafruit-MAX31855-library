@@ -42,6 +42,12 @@ void setup() {
   Serial.println("MAX31855 test");
   // wait for MAX chip to stabilize
   delay(500);
+  Serial.print("Initializing sensor...");
+  if (!thermocouple.begin()) {
+    Serial.println("ERROR.");
+    while (1) delay(10);
+  }
+  Serial.println("DONE.");
 }
 
 void loop() {
