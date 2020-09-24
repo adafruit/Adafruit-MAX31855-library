@@ -187,7 +187,6 @@ double Adafruit_MAX31855::readFahrenheit(void) {
 */
 /**************************************************************************/
 uint32_t Adafruit_MAX31855::spiread32(void) {
-  int i;
   uint32_t d = 0;
   uint8_t buf[4];
 
