@@ -46,8 +46,8 @@ public:
   uint8_t readError();
 
 private:
-  Adafruit_SPIDevice spi_dev = NULL;
-  boolean initialized;
+  Adafruit_SPIDevice spi_dev;
+  bool initialized = false;
 
   uint32_t spiread32(void);
 };

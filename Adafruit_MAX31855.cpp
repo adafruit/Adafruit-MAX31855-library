@@ -51,11 +51,8 @@
     @param _miso The pin to use for SPI Master In Slave Out.
 */
 /**************************************************************************/
-Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
-  spi_dev = Adafruit_SPIDevice(_cs, _sclk, _miso, -1, 1000000);
-
-  initialized = false;
-}
+Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso)
+    : spi_dev(_cs, _sclk, _miso, -1, 1000000) {}
 
 /**************************************************************************/
 /*!
@@ -64,11 +61,7 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso) {
     @param _cs The pin to use for SPI Chip Select.
 */
 /**************************************************************************/
-Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) {
-  spi_dev = Adafruit_SPIDevice(_cs, 1000000);
-
-  initialized = false;
-}
+Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) : spi_dev(_cs, 1000000) {}
 
 /**************************************************************************/
 /*!
@@ -187,7 +180,6 @@ double Adafruit_MAX31855::readFahrenheit(void) {
 */
 /**************************************************************************/
 uint32_t Adafruit_MAX31855::spiread32(void) {
-  int i;
   uint32_t d = 0;
   uint8_t buf[4];
 
