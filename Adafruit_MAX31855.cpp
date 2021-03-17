@@ -59,9 +59,11 @@ Adafruit_MAX31855::Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso)
     @brief  Instantiates a new Adafruit_MAX31855 class using hardware SPI.
 
     @param _cs The pin to use for SPI Chip Select.
+    @param _spi which spi buss to use.
 */
 /**************************************************************************/
-Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs) : spi_dev(_cs, 1000000) {}
+Adafruit_MAX31855::Adafruit_MAX31855(int8_t _cs, SPIClass *_spi)
+    : spi_dev(_cs, 1000000, SPI_BITORDER_MSBFIRST, SPI_MODE0, _spi) {}
 
 /**************************************************************************/
 /*!

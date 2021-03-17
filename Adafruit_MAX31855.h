@@ -37,7 +37,7 @@
 class Adafruit_MAX31855 {
 public:
   Adafruit_MAX31855(int8_t _sclk, int8_t _cs, int8_t _miso);
-  Adafruit_MAX31855(int8_t _cs);
+  Adafruit_MAX31855(int8_t _cs, SPIClass *_spi = &SPI);
 
   bool begin(void);
   double readInternal(void);

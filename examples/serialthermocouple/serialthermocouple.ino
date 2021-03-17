@@ -34,6 +34,11 @@ Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
 //#define MAXCS   10
 //Adafruit_MAX31855 thermocouple(MAXCS);
 
+// Example creating a thermocouple instance with hardware SPI
+// on SPI1 using specified CS pin.
+//#define MAXCS   10
+//Adafruit_MAX31855 thermocouple(MAXCS, SPI1);
+
 void setup() {
   Serial.begin(9600);
 
