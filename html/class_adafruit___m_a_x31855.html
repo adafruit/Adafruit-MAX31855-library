@@ -76,9 +76,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a14ae52a0e0ea6cce3d1762a07bce3a90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_a_x31855.html#a14ae52a0e0ea6cce3d1762a07bce3a90">Adafruit_MAX31855</a> (int8_t _sclk, int8_t _cs, int8_t _miso)</td></tr>
 <tr class="memdesc:a14ae52a0e0ea6cce3d1762a07bce3a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new <a class="el" href="class_adafruit___m_a_x31855.html" title="Sensor driver for the Adafruit MAX31855 thermocouple breakout. ">Adafruit_MAX31855</a> class using software SPI.  <a href="#a14ae52a0e0ea6cce3d1762a07bce3a90">More...</a><br /></td></tr>
 <tr class="separator:a14ae52a0e0ea6cce3d1762a07bce3a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace59e2606d69cce68a3a67eb1be155df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_a_x31855.html#ace59e2606d69cce68a3a67eb1be155df">Adafruit_MAX31855</a> (int8_t _cs)</td></tr>
-<tr class="memdesc:ace59e2606d69cce68a3a67eb1be155df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new <a class="el" href="class_adafruit___m_a_x31855.html" title="Sensor driver for the Adafruit MAX31855 thermocouple breakout. ">Adafruit_MAX31855</a> class using hardware SPI.  <a href="#ace59e2606d69cce68a3a67eb1be155df">More...</a><br /></td></tr>
-<tr class="separator:ace59e2606d69cce68a3a67eb1be155df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88ca59f96ebc397fc2cdfaf5b7f2a25b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_a_x31855.html#a88ca59f96ebc397fc2cdfaf5b7f2a25b">Adafruit_MAX31855</a> (int8_t _cs, SPIClass *_spi=&amp;SPI)</td></tr>
+<tr class="memdesc:a88ca59f96ebc397fc2cdfaf5b7f2a25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new <a class="el" href="class_adafruit___m_a_x31855.html" title="Sensor driver for the Adafruit MAX31855 thermocouple breakout. ">Adafruit_MAX31855</a> class using hardware SPI.  <a href="#a88ca59f96ebc397fc2cdfaf5b7f2a25b">More...</a><br /></td></tr>
+<tr class="separator:a88ca59f96ebc397fc2cdfaf5b7f2a25b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace728ee08a7565f57c1bbcc25db48d16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_a_x31855.html#ace728ee08a7565f57c1bbcc25db48d16">begin</a> (void)</td></tr>
 <tr class="memdesc:ace728ee08a7565f57c1bbcc25db48d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the HW.  <a href="#ace728ee08a7565f57c1bbcc25db48d16">More...</a><br /></td></tr>
 <tr class="separator:ace728ee08a7565f57c1bbcc25db48d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,8 +142,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ace59e2606d69cce68a3a67eb1be155df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace59e2606d69cce68a3a67eb1be155df">&#9670;&nbsp;</a></span>Adafruit_MAX31855() <span class="overload">[2/2]</span></h2>
+<a id="a88ca59f96ebc397fc2cdfaf5b7f2a25b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88ca59f96ebc397fc2cdfaf5b7f2a25b">&#9670;&nbsp;</a></span>Adafruit_MAX31855() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,8 +152,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">Adafruit_MAX31855::Adafruit_MAX31855 </td>
           <td>(</td>
           <td class="paramtype">int8_t&#160;</td>
-          <td class="paramname"><em>_cs</em></td><td>)</td>
+          <td class="paramname"><em>_cs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SPIClass *&#160;</td>
+          <td class="paramname"><em>_spi</em> = <code>&amp;SPI</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -162,6 +172,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_cs</td><td>The pin to use for SPI Chip Select. </td></tr>
+    <tr><td class="paramname">_spi</td><td>which spi buss to use. </td></tr>
   </table>
   </dd>
 </dl>
