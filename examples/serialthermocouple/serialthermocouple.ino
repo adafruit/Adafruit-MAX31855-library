@@ -27,12 +27,12 @@
 #define MAXCLK  5
 
 // initialize the Thermocouple
-Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
+//Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
 
 // Example creating a thermocouple instance with hardware SPI
 // on a given CS pin.
-//#define MAXCS   10
-//Adafruit_MAX31855 thermocouple(MAXCS);
+#define MAXCS   A0
+Adafruit_MAX31855 thermocouple(MAXCS);
 
 // Example creating a thermocouple instance with hardware SPI
 // on SPI1 using specified CS pin.
@@ -54,7 +54,8 @@ void setup() {
   }
 
   // OPTIONAL: Can configure fault checks as desired (default is ALL)
-  thermocouple.setFaultChecks(MAX31855_FAULT_OPEN);
+  // Multiple checks can be logically OR'd together.
+  // thermocouple.setFaultChecks(MAX31855_FAULT_OPEN | MAX31855_FAULT_SHORT_VCC);  // short to GND fault is ignored
 
   Serial.println("DONE.");
 }
