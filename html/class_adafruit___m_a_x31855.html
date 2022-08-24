@@ -94,6 +94,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aec40d6c488b24517142d877b955d0196"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_a_x31855.html#aec40d6c488b24517142d877b955d0196">readError</a> ()</td></tr>
 <tr class="memdesc:aec40d6c488b24517142d877b955d0196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the error state.  <a href="#aec40d6c488b24517142d877b955d0196">More...</a><br /></td></tr>
 <tr class="separator:aec40d6c488b24517142d877b955d0196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadcaf7feec433c48219c9d3764fd67ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_a_x31855.html#aadcaf7feec433c48219c9d3764fd67ce">setFaultChecks</a> (uint8_t faults)</td></tr>
+<tr class="memdesc:aadcaf7feec433c48219c9d3764fd67ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the faults to check when reading temperature. If any set faults occur, temperature reading will return NAN.  <a href="#aadcaf7feec433c48219c9d3764fd67ce">More...</a><br /></td></tr>
+<tr class="separator:aadcaf7feec433c48219c9d3764fd67ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sensor driver for the Adafruit MAX31855 thermocouple breakout. </p>
@@ -281,6 +284,32 @@ Public Member Functions</h2></td></tr>
 
 <p>Read the error state. </p>
 <dl class="section return"><dt>Returns</dt><dd>The error state. </dd></dl>
+
+</div>
+</div>
+<a id="aadcaf7feec433c48219c9d3764fd67ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadcaf7feec433c48219c9d3764fd67ce">&#9670;&nbsp;</a></span>setFaultChecks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Adafruit_MAX31855::setFaultChecks </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>faults</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the faults to check when reading temperature. If any set faults occur, temperature reading will return NAN. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">faults</td><td>Faults to check. Use logical OR combinations of preset fault masks: MAX31855_FAULT_OPEN, MAX31855_FAULT_SHORT_GND, MAX31855_FAULT_SHORT_VCC. Can also enable/disable all fault checks using: MAX31855_FAULT_ALL or MAX31855_FAULT_NONE. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
