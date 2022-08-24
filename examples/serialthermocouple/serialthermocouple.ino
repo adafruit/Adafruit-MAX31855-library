@@ -27,12 +27,12 @@
 #define MAXCLK  5
 
 // initialize the Thermocouple
-//Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
+Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
 
 // Example creating a thermocouple instance with hardware SPI
 // on a given CS pin.
-#define MAXCS   A0
-Adafruit_MAX31855 thermocouple(MAXCS);
+//#define MAXCS   10
+//Adafruit_MAX31855 thermocouple(MAXCS);
 
 // Example creating a thermocouple instance with hardware SPI
 // on SPI1 using specified CS pin.
