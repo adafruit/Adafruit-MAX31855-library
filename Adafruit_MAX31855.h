@@ -29,6 +29,12 @@
 
 #include <Adafruit_SPIDevice.h>
 
+#define MAX31855_FAULT_NONE (0x00)      ///< Disable all fault checks
+#define MAX31855_FAULT_OPEN (0x01)      ///< Enable open circuit fault check
+#define MAX31855_FAULT_SHORT_GND (0x02) ///< Enable short to GND fault check
+#define MAX31855_FAULT_SHORT_VCC (0x04) ///< Enable short to VCC fault check
+#define MAX31855_FAULT_ALL (0x07)       ///< Enable all fault checks
+
 /**************************************************************************/
 /*!
     @brief  Sensor driver for the Adafruit MAX31855 thermocouple breakout.
@@ -44,11 +50,12 @@ public:
   double readCelsius(void);
   double readFahrenheit(void);
   uint8_t readError();
+  void setFaultChecks(uint8_t faults);
 
 private:
   Adafruit_SPIDevice spi_dev;
   bool initialized = false;
-
+  uint8_t faultMask = MAX31855_FAULT_ALL;
   uint32_t spiread32(void);
 };
 

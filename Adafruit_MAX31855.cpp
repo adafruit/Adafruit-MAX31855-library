@@ -129,7 +129,7 @@ double Adafruit_MAX31855::readCelsius(void) {
   Serial.print("\tInternal Temp: "); Serial.println(internal);
   */
 
-  if (v & 0x7) {
+  if (v & faultMask) {
     // uh oh, a serious problem!
     return NAN;
   }
@@ -172,6 +172,21 @@ double Adafruit_MAX31855::readFahrenheit(void) {
   f /= 5.0;
   f += 32;
   return f;
+}
+
+/**************************************************************************/
+/*!
+    @brief  Set the faults to check when reading temperature. If any set
+    faults occur, temperature reading will return NAN.
+
+    @param faults Faults to check. Use logical OR combinations of preset
+    fault masks: MAX31855_FAULT_OPEN, MAX31855_FAULT_SHORT_GND,
+    MAX31855_FAULT_SHORT_VCC. Can also enable/disable all fault checks
+    using: MAX31855_FAULT_ALL or MAX31855_FAULT_NONE.
+*/
+/**************************************************************************/
+void Adafruit_MAX31855::setFaultChecks(uint8_t faults) {
+  faultMask = faults & 0x07;
 }
 
 /**************************************************************************/
